@@ -16,7 +16,6 @@
 		F42188A418C500A7008A44BC /* ZH-Logo-Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = F42188A318C500A7008A44BC /* ZH-Logo-Blue.png */; };
 		F464753918C49C8D00EA2DC5 /* menuView.m in Sources */ = {isa = PBXBuildFile; fileRef = F464753818C49C8D00EA2DC5 /* menuView.m */; };
 		F464753C18C49DB900EA2DC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4E86C4418C49AB9007E4BEF /* Main.storyboard */; };
-		F464754818C4A56300EA2DC5 /* menuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F464754718C4A56300EA2DC5 /* menuView.xib */; };
 		F47B40E018C4A74B00C52131 /* menuViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F47B40DF18C4A74B00C52131 /* menuViewButton.m */; };
 		F4E86C3318C49AB9007E4BEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C3218C49AB9007E4BEF /* Foundation.framework */; };
 		F4E86C3518C49AB9007E4BEF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C3418C49AB9007E4BEF /* CoreGraphics.framework */; };
@@ -51,7 +50,6 @@
 		F42188A318C500A7008A44BC /* ZH-Logo-Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ZH-Logo-Blue.png"; sourceTree = "<group>"; };
 		F464753718C49C8D00EA2DC5 /* menuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuView.h; sourceTree = "<group>"; };
 		F464753818C49C8D00EA2DC5 /* menuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuView.m; sourceTree = "<group>"; };
-		F464754718C4A56300EA2DC5 /* menuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = menuView.xib; sourceTree = "<group>"; };
 		F47B40DE18C4A74B00C52131 /* menuViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewButton.h; sourceTree = "<group>"; };
 		F47B40DF18C4A74B00C52131 /* menuViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewButton.m; sourceTree = "<group>"; };
 		F4E86C2F18C49AB9007E4BEF /* menuConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menuConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,7 +161,6 @@
 				F421889A18C4E838008A44BC /* greenButton.png */,
 				F421889B18C4E838008A44BC /* yellowButton.png */,
 				F4E86C4418C49AB9007E4BEF /* Main.storyboard */,
-				F464754718C4A56300EA2DC5 /* menuView.xib */,
 				F4E86C3A18C49AB9007E4BEF /* menuConcept-Info.plist */,
 				F4E86C3E18C49AB9007E4BEF /* main.m */,
 				F4E86C4018C49AB9007E4BEF /* menuConcept-Prefix.pch */,
@@ -272,7 +269,6 @@
 				F42188A018C4E838008A44BC /* yellowButton.png in Resources */,
 				F421889E18C4E838008A44BC /* whiteButton.png in Resources */,
 				F421889F18C4E838008A44BC /* greenButton.png in Resources */,
-				F464754818C4A56300EA2DC5 /* menuView.xib in Resources */,
 				F421889D18C4E838008A44BC /* redButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

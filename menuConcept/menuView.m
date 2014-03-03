@@ -31,11 +31,6 @@
 #pragma mark initStage1
 
 -(void)moreInit {
-    //Loading the menuView.xib file as our mainView
-    menuViewNib = [[[NSBundle mainBundle] loadNibNamed:@"menuView"
-                                                 owner:self
-                                               options:nil] lastObject]; [menuViewNib setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.2]];
-    
     //Creating a couple button to use. Defined in the menuViewButton class
     button1 = [[menuViewButton alloc] initWithDefaults];
     button2 = [[menuViewButton alloc] initWithDefaults];
