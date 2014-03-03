@@ -14,15 +14,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    menuView *mainMenuView = [[menuView alloc] initWithDefaults];
+    menuView *mainMenuView = [[menuView alloc] initWithDefaultsWithDevice:@"iPhone4"];
     mainMenuView.delegate = self;
-    [mainMenuView setCloseDuration:4];
-    [mainMenuView setOpenDuration:2];
-    
+    [mainMenuView setCloseDuration:0.4];
+    [mainMenuView setOpenDuration:0.4];
     [self.view addSubview:mainMenuView];
-    
-    [mainMenuView setImageForButton1:[UIImage imageNamed:@"ZH-Logo-Red.png"] forState:UIControlStateNormal];
-    [mainMenuView setImageForButton1:[UIImage imageNamed:@"ZH-Logo-Blue.png"] forState:UIControlStateHighlighted];
 }
 
 -(void)menuViewNewIndex:(long int)currentIndex {
@@ -30,6 +26,7 @@
         case 0:
             //index 0
             [self.view setBackgroundColor:[UIColor greenColor]];
+            NSLog(@"bratwurst");
             break;
         case 1:
             //index 1

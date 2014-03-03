@@ -8,16 +8,23 @@
 
 #import "menuView.h"
 #import "ViewController.h"
-#import "menuViewButton.h"
 
 @implementation menuView
 @synthesize isOpen, currentIndex, consoleOutput, delegate
 ;
 
-- (id)initWithDefaults {
-    self = [super initWithFrame:CGRectMake(35, 410,250,150)];
-    if (self) {
-        [self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
+- (id)initWithDefaultsWithDevice:(NSString *)userDevice {
+    
+    if ([userDevice isEqualToString:@"iPhone5"]) {
+        self = [super initWithFrame:CGRectMake(35, 410,250,150)];
+        if (self) {
+            //[self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
+        }
+    } else if ([userDevice isEqualToString:@"iPhone4"]) {
+        self = [super initWithFrame:CGRectMake(35, 320,250,150)];
+        if (self) {
+            //[self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
+        }
     }
     
     [self moreInit];
@@ -32,10 +39,10 @@
 
 -(void)moreInit {
     //Creating a couple button to use. Defined in the menuViewButton class
-    button1 = [[menuViewButton alloc] initWithDefaults];
-    button2 = [[menuViewButton alloc] initWithDefaults];
-    button3 = [[menuViewButton alloc] initWithDefaults];
-    button4 = [[menuViewButton alloc] initWithDefaults];
+    button1 = [[UIButton alloc] initWithFrame:button1_rect];
+    button2 = [[UIButton alloc] initWithFrame:button2_rect];
+    button3 = [[UIButton alloc] initWithFrame:button3_rect];
+    button4 = [[UIButton alloc] initWithFrame:button4_rect];
     
     //Adding the previusly initialized pointers to our view
     [self addSubview:menuViewNib];
@@ -56,15 +63,11 @@
     [button3 setFrame:button3_rect]; //Upper middle
     [button4 setFrame:button4_rect]; //Upper right
     
-    //Put the images on the buttons
-    [button1 setImage:[UIImage imageNamed:@"blueButton.png"] forState:UIControlStateNormal];
-    [button2 setImage:[UIImage imageNamed:@"greenButton.png"] forState:UIControlStateNormal];
-    [button3 setImage:[UIImage imageNamed:@"redButton.png"] forState:UIControlStateNormal];
-    [button4 setImage:[UIImage imageNamed:@"yellowButton.png"] forState:UIControlStateNormal];
-    [button1 setImage:[UIImage imageNamed:@"whiteButton.png"] forState:UIControlStateHighlighted];
-    [button2 setImage:[UIImage imageNamed:@"whiteButton.png"] forState:UIControlStateHighlighted];
-    [button3 setImage:[UIImage imageNamed:@"whiteButton.png"] forState:UIControlStateHighlighted];
-    [button4 setImage:[UIImage imageNamed:@"whiteButton.png"] forState:UIControlStateHighlighted];
+    //Put the colors on the buttons
+    [button1 setBackgroundColor:[UIColor lightGrayColor]];
+    [button2 setBackgroundColor:[UIColor colorWithRed:0.5 green:0 blue:0 alpha:1]];
+    [button3 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0.5 alpha:1]];
+    [button4 setBackgroundColor:[UIColor yellowColor]];
     
     //Set tags for the buttons to identificate them in further methods
     [button1 setTag:0];
@@ -72,7 +75,9 @@
     [button3 setTag:2];
     [button4 setTag:3];
     
-    NSLog(@"Passed initStage1");
+    if (consoleOutput) {
+        NSLog(@"Passed initStage1");
+    }
 }
 
 #pragma mark initStage2
@@ -89,7 +94,9 @@
     [button3 setHidden:YES];
     [button4 setHidden:YES];
     
-    NSLog(@"Passed initStage2");
+    if (consoleOutput) {
+        NSLog(@"Passed initStage2");
+    }
 }
 
 #pragma mark initStage3
@@ -108,7 +115,9 @@
                 action:@selector(closeMenu:)
       forControlEvents:UIControlEventTouchUpInside];
     
-    NSLog(@"Passed initStage3");
+    if (consoleOutput) {
+        NSLog(@"Passed initStage3");
+    }
 }
 
 #pragma mark initStage4
@@ -124,7 +133,9 @@
     
     [self openMenu]; [self openMenu];
     
-    NSLog(@"Passed initStage4");
+    if (consoleOutput) {
+        NSLog(@"Passed initStage4");
+    }
 }
 
 #pragma mark menuView methods
@@ -139,9 +150,15 @@
         [UIView setAnimationDelegate:self];
         [UIView setAnimationWillStartSelector:@selector(hideExtButtons)];
         
+        //Frame Animation
         [button2 setFrame:button2_rect];
         [button3 setFrame:button3_rect];
         [button4 setFrame:button4_rect];
+        
+        //Alpha Animation
+        [button2 setAlpha:1];
+        [button3 setAlpha:1];
+        [button4 setAlpha:1];
         
         [UIView commitAnimations];
         
@@ -155,9 +172,15 @@
         [UIView setAnimationDelegate:self];
         [UIView setAnimationDidStopSelector:@selector(hideExtButtons)];
         
+        //Frame Animation
         [button2 setFrame:button1_rect];
         [button3 setFrame:button1_rect];
         [button4 setFrame:button1_rect];
+        
+        //Alpha Animation
+        [button2 setAlpha:0];
+        [button3 setAlpha:0];
+        [button4 setAlpha:0];
         
         [UIView commitAnimations];
         
@@ -228,18 +251,22 @@
 
 -(void)setImageForButton1:(UIImage *)image forState:(UIControlState)controlState {
     [button1 setImage:image forState:controlState];
+    [button1 setBackgroundColor:[UIColor clearColor]];
 }
 
 -(void)setImageForButton2:(UIImage *)image forState:(UIControlState)controlState {
     [button2 setImage:image forState:controlState];
+    [button1 setBackgroundColor:[UIColor clearColor]];
 }
 
 -(void)setImageForButton3:(UIImage *)image forState:(UIControlState)controlState {
     [button3 setImage:image forState:controlState];
+    [button1 setBackgroundColor:[UIColor clearColor]];
 }
 
 -(void)setImageForButton4:(UIImage *)image forState:(UIControlState)controlState {
     [button4 setImage:image forState:controlState];
+    [button1 setBackgroundColor:[UIColor clearColor]];
 }
 
 @end

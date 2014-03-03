@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "menuViewButton.h"
 
 @class menuView;
 @protocol menuViewDelegate
@@ -16,10 +15,10 @@
 @end
 
 @interface menuView : UIView {
-    menuViewButton *button1;
-    menuViewButton *button2;
-    menuViewButton *button3;
-    menuViewButton *button4;
+    UIButton *button1;
+    UIButton *button2;
+    UIButton *button3;
+    UIButton *button4;
     
     CGRect button1_rect;
     CGRect button2_rect;
@@ -37,7 +36,7 @@
     float _closeDuration;
 }
 
--(id)initWithDefaults;
+-(id)initWithDefaultsWithDevice:(NSString *)userDevice;
 -(void)toggleMenu;
 -(void)setOpenDuration:(float)duration;
 -(void)setCloseDuration:(float)duration;
