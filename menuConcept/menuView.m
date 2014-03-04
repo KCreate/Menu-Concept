@@ -10,34 +10,21 @@
 #import "ViewController.h"
 
 @implementation menuView
-@synthesize isOpen, currentIndex, consoleOutput, delegate
+@synthesize isOpen, currentIndex, delegate
 ;
 
-- (id)initWithDefaultsWithDevice:(NSString *)userDevice {
+- (id)initWithCenter:(CGPoint)center {
     
-    if ([userDevice isEqualToString:@"iPhone5"]) {
-        self = [super initWithFrame:CGRectMake(35, 410,250,150)];
-        if (self) {
-            //[self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
-        }
-    } else if ([userDevice isEqualToString:@"iPhone4"]) {
-        self = [super initWithFrame:CGRectMake(35, 320,250,150)];
-        if (self) {
-            //[self setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.1]];
-        }
-    }
-    
-    [self moreInit];
-    [self buttonLocationInit];
-    [self buttonMethodInit];
-    [self buttonCheckingInit];
+    self = [super initWithFrame:CGRectMake(35,410,200,150)];
+    [self setCenter:center];
+    [self initialization];
     
     return self;
 }
 
 #pragma mark initStage1
 
--(void)moreInit {
+-(void)initialization {
     //Creating a couple button to use. Defined in the menuViewButton class
     button1 = [[UIButton alloc] initWithFrame:button1_rect];
     button2 = [[UIButton alloc] initWithFrame:button2_rect];
@@ -45,29 +32,28 @@
     button4 = [[UIButton alloc] initWithFrame:button4_rect];
     
     //Adding the previusly initialized pointers to our view
-    [self addSubview:menuViewNib];
     [self addSubview:button2];
     [self addSubview:button3];
     [self addSubview:button4];
     [self addSubview:button1];
     
     //Initializing the button_rects
-    button1_rect = CGRectMake(100, 100, 50, 50);
-    button2_rect = CGRectMake( 40,  30, 50, 50);
-    button3_rect = CGRectMake(100,  10, 50, 50);
-    button4_rect = CGRectMake(160,  30, 50, 50);
+    button1_rect = CGRectMake(75,100,50,50);
+    button2_rect = CGRectMake(0,30,50,50);
+    button3_rect = CGRectMake(75,0,50,50);
+    button4_rect = CGRectMake(150,30,50,50);
     
     //Position the buttons
     [button1 setFrame:button1_rect]; //Under
-    [button2 setFrame:button2_rect]; //Upper left
-    [button3 setFrame:button3_rect]; //Upper middle
-    [button4 setFrame:button4_rect]; //Upper right
+    [button2 setFrame:button1_rect]; //Upper left
+    [button3 setFrame:button1_rect]; //Upper middle
+    [button4 setFrame:button1_rect]; //Upper right
     
     //Put the colors on the buttons
-    [button1 setBackgroundColor:[UIColor lightGrayColor]];
-    [button2 setBackgroundColor:[UIColor colorWithRed:0.5 green:0 blue:0 alpha:1]];
-    [button3 setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0.5 alpha:1]];
-    [button4 setBackgroundColor:[UIColor yellowColor]];
+    [button1 setBackgroundColor:[UIColor grayColor]];
+    [button2 setBackgroundColor:[UIColor redColor]];
+    [button3 setBackgroundColor:[UIColor redColor]];
+    [button4 setBackgroundColor:[UIColor redColor]];
     
     //Set tags for the buttons to identificate them in further methods
     [button1 setTag:0];
@@ -75,72 +61,33 @@
     [button3 setTag:2];
     [button4 setTag:3];
     
-    if (consoleOutput) {
-        NSLog(@"Passed initStage1");
-    }
-}
-
-#pragma mark initStage2
-
--(void)buttonLocationInit {
-    //Position the buttons at the button1 location
-    button1.frame = button1_rect;
-    button2.frame = button2_rect;
-    button3.frame = button3_rect;
-    button4.frame = button4_rect;
-    
-    //Hide the buttons so the user can click the main button
-    [button2 setHidden:YES];
-    [button3 setHidden:YES];
-    [button4 setHidden:YES];
-    
-    if (consoleOutput) {
-        NSLog(@"Passed initStage2");
-    }
-}
-
-#pragma mark initStage3
-
--(void)buttonMethodInit {
+    //Setting the methods for the buttons
     [button1 addTarget:self
-                action:@selector(openMenu)
+                action:@selector(toggleMenu)
       forControlEvents:UIControlEventTouchUpInside];
     [button2 addTarget:self
-                action:@selector(closeMenu:)
+                action:@selector(updateCurrentIndex:)
       forControlEvents:UIControlEventTouchUpInside];
     [button3 addTarget:self
-                action:@selector(closeMenu:)
+                action:@selector(updateCurrentIndex:)
       forControlEvents:UIControlEventTouchUpInside];
     [button4 addTarget:self
-                action:@selector(closeMenu:)
+                action:@selector(updateCurrentIndex:)
       forControlEvents:UIControlEventTouchUpInside];
     
-    if (consoleOutput) {
-        NSLog(@"Passed initStage3");
-    }
-}
-
-#pragma mark initStage4
-
--(void)buttonCheckingInit {
+    //Setting some default values
     _isOpen = NO;
     _currentIndex = 0;
-    _buttonsAreHidden = NO;
-    consoleOutput = NO;
+    _openDuration = 0;
+    _closeDuration = 0;
     
-    _openDuration = 0.5;
-    _closeDuration = 0.3;
-    
-    [self openMenu]; [self openMenu];
-    
-    if (consoleOutput) {
-        NSLog(@"Passed initStage4");
-    }
+    _openDuration = 0.2;
+    _closeDuration = 0.2;
 }
 
 #pragma mark menuView methods
 
--(void)openMenu {
+-(void)toggleMenu {
     if (!_isOpen) {
         //Menu is closed
         [UIView beginAnimations:nil context:nil];
@@ -148,7 +95,8 @@
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationBeginsFromCurrentState:YES];
         [UIView setAnimationDelegate:self];
-        [UIView setAnimationWillStartSelector:@selector(hideExtButtons)];
+        [UIView setAnimationWillStartSelector:@selector(menuViewWillOpen)];
+        [UIView setAnimationDidStopSelector:@selector(menuViewDidOpen)];
         
         //Frame Animation
         [button2 setFrame:button2_rect];
@@ -170,7 +118,8 @@
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
         [UIView setAnimationBeginsFromCurrentState:YES];
         [UIView setAnimationDelegate:self];
-        [UIView setAnimationDidStopSelector:@selector(hideExtButtons)];
+        [UIView setAnimationWillStartSelector:@selector(menuViewWillClose)];
+        [UIView setAnimationDidStopSelector:@selector(menuViewDidClose)];
         
         //Frame Animation
         [button2 setFrame:button1_rect];
@@ -187,12 +136,12 @@
         _isOpen = NO;
     }
     
-    if (consoleOutput) {
-        NSLog(@"isOpen: %i", _isOpen);
+    if ([self.delegate respondsToSelector:@selector(MVDmenuIsOpen:)]) {
+        [delegate MVDmenuIsOpen:isOpen];
     }
 }
 
--(void)closeMenu:(UIButton *)sender {
+-(void)updateCurrentIndex:(UIButton *)sender {
     switch (sender.tag) {
         case 1:
             //Comes from button2
@@ -210,35 +159,60 @@
             break;
     }
     
-    [delegate menuViewNewIndex:_currentIndex]; //Delegate method to see when a new index got selected
-    
-    if (consoleOutput) {
-        NSLog(@"currentIndex: %li", _currentIndex);
+    if ([self.delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
+        [delegate MVDcurrentIndexWasUpdated:sender.tag - 1];
     }
     
-    [self openMenu];
+    [self toggleMenu]; //Close the menu programmatically
 }
 
 -(void)hideExtButtons {
-    if (!_buttonsAreHidden) {
-        [button2 setHidden:YES];
-        [button3 setHidden:YES];
-        [button4 setHidden:YES];
-        _buttonsAreHidden = YES;
-    } else if (_buttonsAreHidden) {
-        [button2 setHidden:NO];
-        [button3 setHidden:NO];
-        [button4 setHidden:NO];
-        _buttonsAreHidden = NO;
-    }
-    
-    if (consoleOutput) {
-        NSLog(@"isHidden: %i", _buttonsAreHidden);
+    if (!_isOpen) {
+        [self hideButtons];
+    } else  {
+        [self showButtons];
     }
 }
 
--(void)toggleMenu {
-    [self openMenu];
+-(void)hideButtons {
+    [button2 setHidden:YES];
+    [button3 setHidden:YES];
+    [button4 setHidden:YES];
+}
+
+-(void)showButtons {
+    [button2 setHidden:NO];
+    [button3 setHidden:NO];
+    [button4 setHidden:NO];
+}
+
+-(void)menuViewWillOpen {
+    
+    if ([self.delegate respondsToSelector:@selector(MVDmenuViewWillOpen)]) {
+            [delegate MVDmenuViewWillOpen];
+    }
+    
+    [self hideExtButtons];
+}
+
+-(void)menuViewWillClose {
+    if ([self.delegate respondsToSelector:@selector(MVDmenuViewWillClose)]) {
+        [delegate MVDmenuViewWillClose];
+    }
+}
+
+-(void)menuViewDidOpen {
+    if ([self.delegate respondsToSelector:@selector(MVDmenuViewDidOpen)]) {
+        [delegate MVDmenuViewDidOpen];
+    }
+}
+
+-(void)menuViewDidClose {
+    if ([self.delegate respondsToSelector:@selector(MVDmenuViewDidClose)]) {
+        [delegate MVDmenuViewDidClose];
+    }
+    
+    [self hideExtButtons];
 }
 
 -(void)setOpenDuration:(float)duration {
@@ -249,24 +223,31 @@
     _closeDuration = duration;
 }
 
--(void)setImageForButton1:(UIImage *)image forState:(UIControlState)controlState {
-    [button1 setImage:image forState:controlState];
-    [button1 setBackgroundColor:[UIColor clearColor]];
+-(void)setImage:(UIImage *)image forButton:(long)button forState:(UIControlState)controlState {
+    switch (button) {
+        case 0:
+            [button1 setImage:image forState:controlState];
+            break;
+        case 1:
+            [button2 setImage:image forState:controlState];
+            break;
+        case 2:
+            [button3 setImage:image forState:controlState];
+            break;
+        case 3:
+            [button4 setImage:image forState:controlState];
+            break;
+        default:
+            break;
+    }
 }
 
--(void)setImageForButton2:(UIImage *)image forState:(UIControlState)controlState {
-    [button2 setImage:image forState:controlState];
-    [button1 setBackgroundColor:[UIColor clearColor]];
+-(void)setCurrentIndex:(long)index {
+    _currentIndex = index;
 }
 
--(void)setImageForButton3:(UIImage *)image forState:(UIControlState)controlState {
-    [button3 setImage:image forState:controlState];
-    [button1 setBackgroundColor:[UIColor clearColor]];
-}
-
--(void)setImageForButton4:(UIImage *)image forState:(UIControlState)controlState {
-    [button4 setImage:image forState:controlState];
-    [button1 setBackgroundColor:[UIColor clearColor]];
+-(void)setDelegate:(id)id {
+    delegate = id;
 }
 
 @end

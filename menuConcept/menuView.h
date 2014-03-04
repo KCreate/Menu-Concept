@@ -10,7 +10,16 @@
 
 @class menuView;
 @protocol menuViewDelegate
--(void)menuViewNewIndex:(long int)currentIndex;
+
+@required
+-(void)MVDcurrentIndexWasUpdated:(long int)currentIndex;
+
+@optional
+-(void)MVDmenuIsOpen:(BOOL)isOpen;
+-(void)MVDmenuViewWillOpen;
+-(void)MVDmenuViewDidOpen;
+-(void)MVDmenuViewWillClose;
+-(void)MVDmenuViewDidClose;
 
 @end
 
@@ -25,30 +34,29 @@
     CGRect button3_rect;
     CGRect button4_rect;
     
-    UIView *menuViewNib;
-    
     //Class Variables
     BOOL _isOpen;
-    BOOL _buttonsAreHidden;
     long int _currentIndex;
-    
     float _openDuration;
     float _closeDuration;
 }
 
--(id)initWithDefaultsWithDevice:(NSString *)userDevice;
+//Private functions
+-(id)initWithCenter:(CGPoint)center;
 -(void)toggleMenu;
+
+//Public functions
+-(void)setImage:(UIImage *)image forButton:(long int)button forState:(UIControlState)controlState;
+
 -(void)setOpenDuration:(float)duration;
 -(void)setCloseDuration:(float)duration;
+-(void)setCurrentIndex:(long int)index;
+-(void)setDelegate:(id)id;
 
--(void)setImageForButton1:(UIImage *)image forState:(UIControlState)controlState;
--(void)setImageForButton2:(UIImage *)image forState:(UIControlState)controlState;
--(void)setImageForButton3:(UIImage *)image forState:(UIControlState)controlState;
--(void)setImageForButton4:(UIImage *)image forState:(UIControlState)controlState;
-
+//Properties the user can set
 @property (nonatomic, assign) id  delegate;
 @property (nonatomic, readonly) long int currentIndex;
 @property (nonatomic, readonly) BOOL isOpen;
-@property (nonatomic, readwrite) BOOL consoleOutput;
 
 @end
+
