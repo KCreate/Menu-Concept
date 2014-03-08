@@ -53,27 +53,27 @@
 -(void)setMinAlpha:(float)value;
 -(void)setMaxAlpha:(float)value;
 -(void)setCornerRadius:(float)radius;
--(void)styleButtonAtIndex:(int)buttonIndex
-      borderWidth:(float)borderWidth
-       borderColor:(UIColor*)borderColor
+-(void)setShadowForButtonAtIndex:(int)buttonIndex
       shadowOffset:(CGSize)size
        shadowColor:(UIColor*)shadowColor
      shadowOpacity:(float)shadowOpacity;
+-(void)setDrawButtonBorder:(BOOL)flag;
 -(void)setWantsMask:(BOOL)flag;
 -(void)setBackgroundEnabled:(BOOL)flag;
 -(void)setBackgroundColor:(UIColor *)color forButtonAtIndex:(long int)index;
 -(void)resetAndReload;
 -(void)reload;
 
-//Properties the user can set
+//Properties the user can get
 @property (nonatomic, assign) id  delegate;
-@property (nonatomic, readonly) long int currentIndex;
+@property (nonatomic, readwrite) long int currentIndex;
 @property (nonatomic, readonly) BOOL isOpen;
 @property (nonatomic, readwrite) BOOL backgroundEnabled;
 @property (nonatomic, readwrite) BOOL wantsMask;
 @property (nonatomic, readwrite) float minAlpha;
 @property (nonatomic, readwrite) float maxAlpha;
 @property (nonatomic, readwrite) float cornerRadius;
+@property (nonatomic, readwrite) BOOL drawButtonBorder;
 
 @end
 

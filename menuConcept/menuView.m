@@ -12,11 +12,12 @@
 @interface menuView()
 
 -(void)toggleMenuWithButton:(UIButton *)sender SE:(BOOL)flag;
+-(void)applySelectedSignToButtonWithIndex:(long int)index;
 
 @end
 
 @implementation menuView
-@synthesize isOpen, currentIndex, delegate, minAlpha, maxAlpha, cornerRadius, wantsMask, backgroundEnabled;
+@synthesize isOpen, currentIndex, delegate, minAlpha, maxAlpha, cornerRadius, wantsMask, backgroundEnabled, drawButtonBorder;
 
 - (id)initWithCenter:(CGPoint)center {
     
@@ -40,6 +41,7 @@
     cornerRadius = 25;
     wantsMask = NO;
     backgroundEnabled = YES;
+    drawButtonBorder = NO;
     
     //Creating a couple button to use. Defined in the menuViewButton class
     button1 = [[UIButton alloc] initWithFrame:button1_rect];
@@ -93,13 +95,13 @@
                 action:@selector(toggleMenuWithButton:SE:)
       forControlEvents:UIControlEventTouchUpInside];
     [button2 addTarget:self
-                action:@selector(updateCurrentIndex:)
+                action:@selector(updateCurrentIndex:withNumber:)
       forControlEvents:UIControlEventTouchUpInside];
     [button3 addTarget:self
-                action:@selector(updateCurrentIndex:)
+                action:@selector(updateCurrentIndex:withNumber:)
       forControlEvents:UIControlEventTouchUpInside];
     [button4 addTarget:self
-                action:@selector(updateCurrentIndex:)
+                action:@selector(updateCurrentIndex:withNumber:)
       forControlEvents:UIControlEventTouchUpInside];
     
     //Setting methods for UIControlEventTouchDown
@@ -244,16 +246,29 @@
     }
 }
 
--(void)updateCurrentIndex:(UIButton *)sender {
-    [self scalingEffectDown:sender];
-    //Set the new current index variable
-    _currentIndex = sender.tag - 1;
-    
-    if ([self.delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
-        [delegate MVDcurrentIndexWasUpdated:sender.tag - 1];
+-(void)updateCurrentIndex:(UIButton *)sender withNumber:(long int)index {
+    if (index == 4491056256) {
+        [self scalingEffectDown:sender];
+        //Set the new current index variable
+        currentIndex = sender.tag - 1;
+        
+        if ([self.delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
+            [delegate MVDcurrentIndexWasUpdated:sender.tag - 1];
+        }
+        
+        [self toggleMenuWithButton:sender SE:NO]; //Close the menu programmatically
+    } else {
+        currentIndex = index; //Set the new given by the function
+        if ([self.delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
+            [delegate MVDcurrentIndexWasUpdated:sender.tag - 1];
+        }
+        
+        [self toggleMenuWithButton:sender SE:NO];
     }
     
-    [self toggleMenuWithButton:sender SE:NO]; //Close the menu programmatically
+    if (drawButtonBorder) {
+        [self applySelectedSignToButtonWithIndex:sender.tag];
+    }
 }
 
 -(void)hideExtButtons {
@@ -418,9 +433,7 @@
     }
 }
 
--(void)styleButtonAtIndex:(int)buttonIndex
-              borderWidth:(float)borderWidth
-              borderColor:(UIColor*)borderColor
+-(void)setShadowForButtonAtIndex:(int)buttonIndex
              shadowOffset:(CGSize)size
               shadowColor:(UIColor*)shadowColor
             shadowOpacity:(float)shadowOpacity
@@ -429,32 +442,24 @@
     switch (buttonIndex) {
         case 0:
             //Main Button
-            [button1.layer setBorderWidth:borderWidth];
-            [button1.layer setBorderColor:borderColor.CGColor];
             [button1.layer setShadowOffset:size];
             [button1.layer setShadowColor:shadowColor.CGColor];
             [button1.layer setShadowOpacity:shadowOpacity];
             break;
         case 1:
             //Second Button
-            [button2.layer setBorderWidth:borderWidth];
-            [button2.layer setBorderColor:borderColor.CGColor];
             [button2.layer setShadowOffset:size];
             [button2.layer setShadowColor:shadowColor.CGColor];
             [button2.layer setShadowOpacity:shadowOpacity];
             break;
         case 2:
             //Third Button
-            [button3.layer setBorderWidth:borderWidth];
-            [button3.layer setBorderColor:borderColor.CGColor];
             [button3.layer setShadowOffset:size];
             [button3.layer setShadowColor:shadowColor.CGColor];
             [button3.layer setShadowOpacity:shadowOpacity];
             break;
         case 3:
             //Fourt Button
-            [button4.layer setBorderWidth:borderWidth];
-            [button4.layer setBorderColor:borderColor.CGColor];
             [button4.layer setShadowOffset:size];
             [button4.layer setShadowColor:shadowColor.CGColor];
             [button4.layer setShadowOpacity:shadowOpacity];
@@ -504,16 +509,20 @@
     [button3.layer setCornerRadius:cornerRadius];
     [button4.layer setCornerRadius:cornerRadius];
     
-    if (backgroundEnabled) {
-        [button1 setBackgroundColor:[UIColor grayColor]];
-        [button2 setBackgroundColor:[UIColor redColor]];
-        [button3 setBackgroundColor:[UIColor redColor]];
-        [button4 setBackgroundColor:[UIColor redColor]];
-    } else {
+    if (!backgroundEnabled) {
         [button1 setBackgroundColor:[UIColor clearColor]];
         [button2 setBackgroundColor:[UIColor clearColor]];
         [button3 setBackgroundColor:[UIColor clearColor]];
         [button4 setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    if (!drawButtonBorder) {
+        button2.layer.borderWidth = 0;
+        button2.layer.borderColor = [UIColor clearColor].CGColor;
+        button3.layer.borderWidth = 0;
+        button3.layer.borderColor = [UIColor clearColor].CGColor;
+        button4.layer.borderWidth = 0;
+        button4.layer.borderColor = [UIColor clearColor].CGColor;
     }
     
     if (wantsMask) {
@@ -535,6 +544,36 @@
 
 -(void)toggleMenu {
     [self toggleMenuWithButton:nil SE:NO];
+}
+
+- (void)applySelectedSignToButtonWithIndex:(long)index {
+    button2.layer.borderWidth = 0;
+    button2.layer.borderColor = [UIColor clearColor].CGColor;
+    button3.layer.borderWidth = 0;
+    button3.layer.borderColor = [UIColor clearColor].CGColor;
+    button4.layer.borderWidth = 0;
+    button4.layer.borderColor = [UIColor clearColor].CGColor;
+    
+    switch (index) {
+        case 1:
+            button2.layer.borderWidth = 2;
+            button2.layer.borderColor = [UIColor blackColor].CGColor;
+            break;
+        case 2:
+            button3.layer.borderWidth = 2;
+            button3.layer.borderColor = [UIColor blackColor].CGColor;
+            break;
+        case 3:
+            button4.layer.borderWidth = 2;
+            button4.layer.borderColor = [UIColor blackColor].CGColor;
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)setDrawButtonBorder:(BOOL)flag {
+    drawButtonBorder = flag;
 }
 
 @end

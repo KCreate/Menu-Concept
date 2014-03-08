@@ -19,6 +19,8 @@
     mainMenuView = [[menuView alloc] initWithCenter:CGPointMake(viewWidht_half, 450)];
     mainMenuView.delegate = self; //Important if you want to use delegate methods like MVDcurrentIndexWasUpdated:
     [self.view addSubview:mainMenuView];
+    mainMenuView.drawButtonBorder = YES;
+    
 }
 
 -(void)MVDcurrentIndexWasUpdated:(long int)currentIndex {
@@ -39,6 +41,7 @@
         case 2:
             //Button 3
             self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+            [mainMenuView setDrawButtonBorder:NO];
             break;
         default:
             break;
