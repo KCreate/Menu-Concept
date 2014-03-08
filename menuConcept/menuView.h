@@ -25,11 +25,6 @@
 @end
 
 @interface menuView : UIView {
-    UIButton *button1;
-    UIButton *button2;
-    UIButton *button3;
-    UIButton *button4;
-    
     CGRect button1_rect;
     CGRect button2_rect;
     CGRect button3_rect;
@@ -74,6 +69,16 @@
 @property (nonatomic, readwrite) float maxAlpha;
 @property (nonatomic, readwrite) float cornerRadius;
 @property (nonatomic, readwrite) BOOL drawButtonBorder;
+
+@property (nonatomic, readwrite) UIButton *button1;
+@property (nonatomic, readwrite) UIButton *button2;
+@property (nonatomic, readwrite) UIButton *button3;
+@property (nonatomic, readwrite) UIButton *button4;
+
+@property (nonatomic, readwrite) CGRect button1_rect;
+@property (nonatomic, readwrite) CGRect button2_rect;
+@property (nonatomic, readwrite) CGRect button3_rect;
+@property (nonatomic, readwrite) CGRect button4_rect;
 
 @end
 

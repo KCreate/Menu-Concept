@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F45D1D1918CBE476000AC9FF /* menuViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F45D1D1718CBE476000AC9FF /* menuViewViewController.m */; };
+		F45D1D1A18CBE476000AC9FF /* menuViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F45D1D1818CBE476000AC9FF /* menuViewViewController.xib */; };
 		F464753918C49C8D00EA2DC5 /* menuView.m in Sources */ = {isa = PBXBuildFile; fileRef = F464753818C49C8D00EA2DC5 /* menuView.m */; };
 		F464753C18C49DB900EA2DC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4E86C4418C49AB9007E4BEF /* Main.storyboard */; };
 		F4BA2B9318C9012700CDD7A2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA2B9218C9012700CDD7A2 /* AudioToolbox.framework */; };
@@ -20,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F45D1D1618CBE476000AC9FF /* menuViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuViewViewController.h; sourceTree = "<group>"; };
+		F45D1D1718CBE476000AC9FF /* menuViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuViewViewController.m; sourceTree = "<group>"; };
+		F45D1D1818CBE476000AC9FF /* menuViewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = menuViewViewController.xib; sourceTree = "<group>"; };
 		F464753718C49C8D00EA2DC5 /* menuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuView.h; sourceTree = "<group>"; };
 		F464753818C49C8D00EA2DC5 /* menuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuView.m; sourceTree = "<group>"; };
 		F4BA2B9218C9012700CDD7A2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -116,6 +121,9 @@
 				F4E86C3A18C49AB9007E4BEF /* menuConcept-Info.plist */,
 				F4E86C3E18C49AB9007E4BEF /* main.m */,
 				F4E86C4018C49AB9007E4BEF /* menuConcept-Prefix.pch */,
+				F45D1D1618CBE476000AC9FF /* menuViewViewController.h */,
+				F45D1D1718CBE476000AC9FF /* menuViewViewController.m */,
+				F45D1D1818CBE476000AC9FF /* menuViewViewController.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -190,6 +198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4E86C4B18C49AB9007E4BEF /* Images.xcassets in Resources */,
+				F45D1D1A18CBE476000AC9FF /* menuViewViewController.xib in Resources */,
 				F464753C18C49DB900EA2DC5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F45D1D1918CBE476000AC9FF /* menuViewViewController.m in Sources */,
 				F4E86C4918C49AB9007E4BEF /* ViewController.m in Sources */,
 				F464753918C49C8D00EA2DC5 /* menuView.m in Sources */,
 				F4E86C4318C49AB9007E4BEF /* AppDelegate.m in Sources */,

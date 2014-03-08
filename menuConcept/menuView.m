@@ -18,6 +18,7 @@
 
 @implementation menuView
 @synthesize isOpen, currentIndex, delegate, minAlpha, maxAlpha, cornerRadius, wantsMask, backgroundEnabled, drawButtonBorder;
+@synthesize button1, button2, button3, button4, button1_rect, button2_rect, button3_rect, button4_rect;
 
 - (id)initWithCenter:(CGPoint)center {
     
@@ -179,6 +180,7 @@
                          animations:^(void) {
                              //Frame Animation
                              [button4 setFrame:button4_rect];
+                             [button1 setFrame:button1_rect];
                              
                              //Alpha Animation
                              [button4 setAlpha:maxAlpha];
@@ -227,6 +229,7 @@
                          animations:^(void) {
                              //Frame Animation
                              [button4 setFrame:button1_rect];
+                             [button1 setFrame:button1_rect];
                              
                              //Alpha Animation
                              [button4 setAlpha:minAlpha];
