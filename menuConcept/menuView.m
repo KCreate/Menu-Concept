@@ -398,7 +398,6 @@
     animation.duration = .2;
     
     [sender.layer addAnimation:animation forKey:nil];
-    [self playSoundNamed:@"out2" withExt:@"caf"];
 }
 
 - (void)playSoundNamed:(NSString *)fName withExt:(NSString *) ext{
