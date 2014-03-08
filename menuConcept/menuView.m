@@ -412,4 +412,50 @@
     }
 }
 
+-(void)styleButtonAtIndex:(int)buttonIndex
+              borderWidth:(float)borderWidth
+              borderColor:(UIColor*)borderColor
+             shadowOffset:(CGSize)size
+              shadowColor:(UIColor*)shadowColor
+            shadowOpacity:(float)shadowOpacity
+{
+    //Get which buttons should be styled
+    switch (buttonIndex) {
+        case 0:
+            //Main Button
+            [button1.layer setBorderWidth:borderWidth];
+            [button1.layer setBorderColor:borderColor.CGColor];
+            [button1.layer setShadowOffset:size];
+            [button1.layer setShadowColor:shadowColor.CGColor];
+            [button1.layer setShadowOpacity:shadowOpacity];
+            break;
+        case 1:
+            //Second Button
+            [button2.layer setBorderWidth:borderWidth];
+            [button2.layer setBorderColor:borderColor.CGColor];
+            [button2.layer setShadowOffset:size];
+            [button2.layer setShadowColor:shadowColor.CGColor];
+            [button2.layer setShadowOpacity:shadowOpacity];
+            break;
+        case 2:
+            //Third Button
+            [button3.layer setBorderWidth:borderWidth];
+            [button3.layer setBorderColor:borderColor.CGColor];
+            [button3.layer setShadowOffset:size];
+            [button3.layer setShadowColor:shadowColor.CGColor];
+            [button3.layer setShadowOpacity:shadowOpacity];
+            break;
+        case 3:
+            //Fourt Button
+            [button4.layer setBorderWidth:borderWidth];
+            [button4.layer setBorderColor:borderColor.CGColor];
+            [button4.layer setShadowOffset:size];
+            [button4.layer setShadowColor:shadowColor.CGColor];
+            [button4.layer setShadowOpacity:shadowOpacity];
+            break;
+        default:
+            break;
+    }
+}
+
 @end

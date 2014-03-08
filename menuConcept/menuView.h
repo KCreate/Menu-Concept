@@ -54,6 +54,12 @@
 -(void)setMinAlpha:(float)value;
 -(void)setMaxAlpha:(float)value;
 -(void)setCornerRadius:(float)radius;
+-(void)styleButtonAtIndex:(int)buttonIndex
+      borderWidth:(float)borderWidth
+       borderColor:(UIColor*)borderColor
+      shadowOffset:(CGSize)size
+       shadowColor:(UIColor*)shadowColor
+     shadowOpacity:(float)shadowOpacity;
 
 //Properties the user can set
 @property (nonatomic, assign) id  delegate;
