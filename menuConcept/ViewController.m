@@ -16,31 +16,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    menuView *mainMenuView = [[menuView alloc] initWithCenter:CGPointMake(viewWidht_half, 450)];
-    mainMenuView.delegate = self; //Important if you want to use delegate methods like updateCurrentIndex:
+    mainMenuView = [[menuView alloc] initWithCenter:CGPointMake(viewWidht_half, 450)];
+    mainMenuView.delegate = self; //Important if you want to use delegate methods like MVDcurrentIndexWasUpdated:
     [self.view addSubview:mainMenuView];
-
+    mainMenuView.cornerRadius = 15;
 }
 
 -(void)MVDcurrentIndexWasUpdated:(long int)currentIndex {
-    
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:0.2];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationBeginsFromCurrentState:YES];
     
     switch (currentIndex) {
         case 0:
-            //index 0
-            [self.view setBackgroundColor:[UIColor greenColor]];
+            //Button 1
+            self.view.backgroundColor = [UIColor blueColor];
             break;
         case 1:
-            //index 1
-            [self.view setBackgroundColor:[UIColor orangeColor]];
+            //Button 2
+            self.view.backgroundColor = [UIColor greenColor];
             break;
         case 2:
-            //index 2
-            [self.view setBackgroundColor:[UIColor yellowColor]];
+            //Button 3
+            self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
             break;
         default:
             break;

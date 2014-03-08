@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F464753918C49C8D00EA2DC5 /* menuView.m in Sources */ = {isa = PBXBuildFile; fileRef = F464753818C49C8D00EA2DC5 /* menuView.m */; };
 		F464753C18C49DB900EA2DC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4E86C4418C49AB9007E4BEF /* Main.storyboard */; };
+		F4BA2B9318C9012700CDD7A2 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4BA2B9218C9012700CDD7A2 /* AudioToolbox.framework */; };
 		F4E86C3318C49AB9007E4BEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C3218C49AB9007E4BEF /* Foundation.framework */; };
 		F4E86C3518C49AB9007E4BEF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C3418C49AB9007E4BEF /* CoreGraphics.framework */; };
 		F4E86C3718C49AB9007E4BEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C3618C49AB9007E4BEF /* UIKit.framework */; };
@@ -16,25 +17,12 @@
 		F4E86C4318C49AB9007E4BEF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E86C4218C49AB9007E4BEF /* AppDelegate.m */; };
 		F4E86C4918C49AB9007E4BEF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E86C4818C49AB9007E4BEF /* ViewController.m */; };
 		F4E86C4B18C49AB9007E4BEF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E86C4A18C49AB9007E4BEF /* Images.xcassets */; };
-		F4E86C5218C49AB9007E4BEF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C5118C49AB9007E4BEF /* XCTest.framework */; };
-		F4E86C5318C49AB9007E4BEF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C3218C49AB9007E4BEF /* Foundation.framework */; };
-		F4E86C5418C49AB9007E4BEF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4E86C3618C49AB9007E4BEF /* UIKit.framework */; };
-		F4E86C5E18C49AB9007E4BEF /* menuConceptTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E86C5D18C49AB9007E4BEF /* menuConceptTests.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		F4E86C5518C49AB9007E4BEF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F4E86C2718C49AB9007E4BEF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F4E86C2E18C49AB9007E4BEF;
-			remoteInfo = menuConcept;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		F464753718C49C8D00EA2DC5 /* menuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuView.h; sourceTree = "<group>"; };
 		F464753818C49C8D00EA2DC5 /* menuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menuView.m; sourceTree = "<group>"; };
+		F4BA2B9218C9012700CDD7A2 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		F4E86C2F18C49AB9007E4BEF /* menuConcept.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = menuConcept.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E86C3218C49AB9007E4BEF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F4E86C3418C49AB9007E4BEF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,7 +36,6 @@
 		F4E86C4718C49AB9007E4BEF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F4E86C4818C49AB9007E4BEF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F4E86C4A18C49AB9007E4BEF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		F4E86C5018C49AB9007E4BEF /* menuConceptTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = menuConceptTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E86C5118C49AB9007E4BEF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		F4E86C5918C49AB9007E4BEF /* menuConceptTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "menuConceptTests-Info.plist"; sourceTree = "<group>"; };
 		F4E86C5D18C49AB9007E4BEF /* menuConceptTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = menuConceptTests.m; sourceTree = "<group>"; };
@@ -59,19 +46,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4BA2B9318C9012700CDD7A2 /* AudioToolbox.framework in Frameworks */,
 				F4E86C3518C49AB9007E4BEF /* CoreGraphics.framework in Frameworks */,
 				F4E86C3718C49AB9007E4BEF /* UIKit.framework in Frameworks */,
 				F4E86C3318C49AB9007E4BEF /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F4E86C4D18C49AB9007E4BEF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F4E86C5218C49AB9007E4BEF /* XCTest.framework in Frameworks */,
-				F4E86C5418C49AB9007E4BEF /* UIKit.framework in Frameworks */,
-				F4E86C5318C49AB9007E4BEF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				F4E86C2F18C49AB9007E4BEF /* menuConcept.app */,
-				F4E86C5018C49AB9007E4BEF /* menuConceptTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,6 +90,7 @@
 		F4E86C3118C49AB9007E4BEF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4BA2B9218C9012700CDD7A2 /* AudioToolbox.framework */,
 				F4E86C3218C49AB9007E4BEF /* Foundation.framework */,
 				F4E86C3418C49AB9007E4BEF /* CoreGraphics.framework */,
 				F4E86C3618C49AB9007E4BEF /* UIKit.framework */,
@@ -179,24 +157,6 @@
 			productReference = F4E86C2F18C49AB9007E4BEF /* menuConcept.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F4E86C4F18C49AB9007E4BEF /* menuConceptTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F4E86C6418C49AB9007E4BEF /* Build configuration list for PBXNativeTarget "menuConceptTests" */;
-			buildPhases = (
-				F4E86C4C18C49AB9007E4BEF /* Sources */,
-				F4E86C4D18C49AB9007E4BEF /* Frameworks */,
-				F4E86C4E18C49AB9007E4BEF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F4E86C5618C49AB9007E4BEF /* PBXTargetDependency */,
-			);
-			name = menuConceptTests;
-			productName = menuConceptTests;
-			productReference = F4E86C5018C49AB9007E4BEF /* menuConceptTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -205,11 +165,6 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Leonard Schuetz";
-				TargetAttributes = {
-					F4E86C4F18C49AB9007E4BEF = {
-						TestTargetID = F4E86C2E18C49AB9007E4BEF;
-					};
-				};
 			};
 			buildConfigurationList = F4E86C2A18C49AB9007E4BEF /* Build configuration list for PBXProject "menuConcept" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -225,7 +180,6 @@
 			projectRoot = "";
 			targets = (
 				F4E86C2E18C49AB9007E4BEF /* menuConcept */,
-				F4E86C4F18C49AB9007E4BEF /* menuConceptTests */,
 			);
 		};
 /* End PBXProject section */
@@ -237,13 +191,6 @@
 			files = (
 				F4E86C4B18C49AB9007E4BEF /* Images.xcassets in Resources */,
 				F464753C18C49DB900EA2DC5 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F4E86C4E18C49AB9007E4BEF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,23 +208,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		F4E86C4C18C49AB9007E4BEF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F4E86C5E18C49AB9007E4BEF /* menuConceptTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F4E86C5618C49AB9007E4BEF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F4E86C2E18C49AB9007E4BEF /* menuConcept */;
-			targetProxy = F4E86C5518C49AB9007E4BEF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F4E86C4418C49AB9007E4BEF /* Main.storyboard */ = {
@@ -389,48 +320,6 @@
 			};
 			name = Release;
 		};
-		F4E86C6518C49AB9007E4BEF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/menuConcept.app/menuConcept";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "menuConcept/menuConcept-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "menuConceptTests/menuConceptTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		F4E86C6618C49AB9007E4BEF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/menuConcept.app/menuConcept";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "menuConcept/menuConcept-Prefix.pch";
-				INFOPLIST_FILE = "menuConceptTests/menuConceptTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -448,15 +337,6 @@
 			buildConfigurations = (
 				F4E86C6218C49AB9007E4BEF /* Debug */,
 				F4E86C6318C49AB9007E4BEF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F4E86C6418C49AB9007E4BEF /* Build configuration list for PBXNativeTarget "menuConceptTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F4E86C6518C49AB9007E4BEF /* Debug */,
-				F4E86C6618C49AB9007E4BEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

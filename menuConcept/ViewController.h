@@ -10,7 +10,7 @@
 #import "menuView.h"
 
 @interface ViewController : UIViewController <menuViewDelegate> {
-    
+    menuView *mainMenuView;
 }
 
 @property (strong, nonatomic) IBOutlet UIView *view;

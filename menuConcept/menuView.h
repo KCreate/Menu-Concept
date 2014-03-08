@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @class menuView;
 @protocol menuViewDelegate
@@ -37,26 +38,31 @@
     //Class Variables
     BOOL _isOpen;
     long int _currentIndex;
-    float _openDuration;
-    float _closeDuration;
+    float openDuration;
+    float closeDuration;
+    SystemSoundID audioEffect;
 }
 
 //Private functions
 -(id)initWithCenter:(CGPoint)center;
--(void)toggleMenu;
+-(void)toggleMenuWithButton:(UIButton *)sender SE:(BOOL)flag;
 
 //Public functions
 -(void)setImage:(UIImage *)image forButton:(long int)button forState:(UIControlState)controlState;
-
--(void)setOpenDuration:(float)duration;
--(void)setCloseDuration:(float)duration;
 -(void)setCurrentIndex:(long int)index;
 -(void)setDelegate:(id)id;
+-(void)setMinAlpha:(float)value;
+-(void)setMaxAlpha:(float)value;
+-(void)setCornerRadius:(float)radius;
 
 //Properties the user can set
 @property (nonatomic, assign) id  delegate;
 @property (nonatomic, readonly) long int currentIndex;
 @property (nonatomic, readonly) BOOL isOpen;
+@property (nonatomic, readwrite) float minAlpha;
+@property (nonatomic, readwrite) float maxAlpha;
+@property (nonatomic, readwrite) float cornerRadius;
+@property (nonatomic, readwrite) CGSize buttonScale;
 
 @end
 

@@ -10,8 +10,7 @@
 #import "ViewController.h"
 
 @implementation menuView
-@synthesize isOpen, currentIndex, delegate
-;
+@synthesize isOpen, currentIndex, delegate, minAlpha, maxAlpha, cornerRadius, buttonScale;
 
 - (id)initWithCenter:(CGPoint)center {
     
@@ -25,13 +24,22 @@
 #pragma mark initStage1
 
 -(void)initialization {
+    //Setting some default values
+    _isOpen = NO;
+    _currentIndex = 0;
+    openDuration = 0.5;
+    closeDuration = 0.5;
+    minAlpha = 0;
+    maxAlpha = 1;
+    cornerRadius = 25;
+    
     //Creating a couple button to use. Defined in the menuViewButton class
     button1 = [[UIButton alloc] initWithFrame:button1_rect];
     button2 = [[UIButton alloc] initWithFrame:button2_rect];
     button3 = [[UIButton alloc] initWithFrame:button3_rect];
     button4 = [[UIButton alloc] initWithFrame:button4_rect];
     
-    //Adding the previusly initialized pointers to our view
+    //Adding the previusly initialized buttons to our view
     [self addSubview:button2];
     [self addSubview:button3];
     [self addSubview:button4];
@@ -49,11 +57,22 @@
     [button3 setFrame:button1_rect]; //Upper middle
     [button4 setFrame:button1_rect]; //Upper right
     
+    //Set alpha values
+    [button2 setAlpha:0];
+    [button3 setAlpha:0];
+    [button4 setAlpha:0];
+    
     //Put the colors on the buttons
     [button1 setBackgroundColor:[UIColor grayColor]];
     [button2 setBackgroundColor:[UIColor redColor]];
     [button3 setBackgroundColor:[UIColor redColor]];
     [button4 setBackgroundColor:[UIColor redColor]];
+    
+    //Round the corner of the buttons
+    [button1.layer setCornerRadius:cornerRadius];
+    [button2.layer setCornerRadius:cornerRadius];
+    [button3.layer setCornerRadius:cornerRadius];
+    [button4.layer setCornerRadius:cornerRadius];
     
     //Set tags for the buttons to identificate them in further methods
     [button1 setTag:0];
@@ -61,9 +80,9 @@
     [button3 setTag:2];
     [button4 setTag:3];
     
-    //Setting the methods for the buttons
+    //Setting methods for UIControlEventTouchUpInside
     [button1 addTarget:self
-                action:@selector(toggleMenu)
+                action:@selector(toggleMenuWithButton:SE:)
       forControlEvents:UIControlEventTouchUpInside];
     [button2 addTarget:self
                 action:@selector(updateCurrentIndex:)
@@ -75,102 +94,168 @@
                 action:@selector(updateCurrentIndex:)
       forControlEvents:UIControlEventTouchUpInside];
     
-    //Setting some default values
-    _isOpen = NO;
-    _currentIndex = 0;
-    _openDuration = 0;
-    _closeDuration = 0;
+    //Setting methods for UIControlEventTouchDown
+    [button1 addTarget:self
+                action:@selector(scalingEffect:)
+      forControlEvents:UIControlEventTouchDown];
+    [button2 addTarget:self
+                action:@selector(scalingEffect:)
+      forControlEvents:UIControlEventTouchDown];
+    [button3 addTarget:self
+                action:@selector(scalingEffect:)
+      forControlEvents:UIControlEventTouchDown];
+    [button4 addTarget:self
+                action:@selector(scalingEffect:)
+      forControlEvents:UIControlEventTouchDown];
     
-    _openDuration = 0.2;
-    _closeDuration = 0.2;
+    //Setting methods for UIControlEventTouchDownCancel
+    [button1 addTarget:self
+                action:@selector(scalingEffectDown:)
+      forControlEvents:UIControlEventTouchDragExit];
+    [button2 addTarget:self
+                action:@selector(scalingEffectDown:)
+      forControlEvents:UIControlEventTouchDragExit];
+    [button3 addTarget:self
+                action:@selector(scalingEffectDown:)
+      forControlEvents:UIControlEventTouchDragExit];
+    [button4 addTarget:self
+                action:@selector(scalingEffectDown:)
+      forControlEvents:UIControlEventTouchDragExit];
 }
 
 #pragma mark menuView methods
 
--(void)toggleMenu {
+-(void)toggleMenuWithButton:(UIButton *)sender SE:(BOOL)flag {
+    //Set the corner radius
+    [button1.layer setCornerRadius:cornerRadius];
+    [button2.layer setCornerRadius:cornerRadius];
+    [button3.layer setCornerRadius:cornerRadius];
+    [button4.layer setCornerRadius:cornerRadius];
+    
     if (!_isOpen) {
         //Menu is closed
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:_openDuration];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationBeginsFromCurrentState:YES];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationWillStartSelector:@selector(menuViewWillOpen)];
-        [UIView setAnimationDidStopSelector:@selector(menuViewDidOpen)];
-        
-        //Frame Animation
-        [button2 setFrame:button2_rect];
-        [button3 setFrame:button3_rect];
-        [button4 setFrame:button4_rect];
-        
-        //Alpha Animation
-        [button2 setAlpha:1];
-        [button3 setAlpha:1];
-        [button4 setAlpha:1];
-        
-        [UIView commitAnimations];
-        
-        _isOpen = YES;
+        [UIView animateWithDuration:openDuration
+                              delay:0
+             usingSpringWithDamping:0.8
+              initialSpringVelocity:40
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^(void) {
+                             [self menuViewWillOpen];
+                             
+                             //Frame Animation
+                             [button2 setFrame:button2_rect];
+                             
+                             //Alpha Animation
+                             [button2 setAlpha:maxAlpha];
+                         }
+                         completion:^(BOOL finished) {
+                         }];
+        [UIView animateWithDuration:openDuration
+                              delay:0.1
+             usingSpringWithDamping:0.8
+              initialSpringVelocity:40
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^(void) {
+                             //Frame Animation
+                             [button3 setFrame:button3_rect];
+                             
+                             //Alpha Animation
+                             [button3 setAlpha:maxAlpha];
+                         }
+                         completion:^(BOOL finished) {
+                         }];
+        [UIView animateWithDuration:openDuration
+                              delay:0.2
+             usingSpringWithDamping:0.8
+              initialSpringVelocity:40
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^(void) {
+                             //Frame Animation
+                             [button4 setFrame:button4_rect];
+                             
+                             //Alpha Animation
+                             [button4 setAlpha:maxAlpha];
+                         }
+                         completion:^(BOOL finished) {
+                             [self menuViewDidOpen];
+                             _isOpen = YES;
+                         }];
     } else {
         //Menu is open
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:_closeDuration];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationBeginsFromCurrentState:YES];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationWillStartSelector:@selector(menuViewWillClose)];
-        [UIView setAnimationDidStopSelector:@selector(menuViewDidClose)];
-        
-        //Frame Animation
-        [button2 setFrame:button1_rect];
-        [button3 setFrame:button1_rect];
-        [button4 setFrame:button1_rect];
-        
-        //Alpha Animation
-        [button2 setAlpha:0];
-        [button3 setAlpha:0];
-        [button4 setAlpha:0];
-        
-        [UIView commitAnimations];
-        
-        _isOpen = NO;
+        [UIView animateWithDuration:closeDuration
+                              delay:0
+             usingSpringWithDamping:1
+              initialSpringVelocity:40
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^(void) {
+                             [self menuViewWillClose];
+                             
+                             //Frame Animation
+                             [button2 setFrame:button1_rect];
+                             
+                             //Alpha Animation
+                             [button2 setAlpha:minAlpha];
+                         }
+                         completion:^(BOOL finished) {
+                         }];
+        [UIView animateWithDuration:closeDuration
+                              delay:0.1
+             usingSpringWithDamping:1
+              initialSpringVelocity:40
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^(void) {
+                             //Frame Animation
+                             [button3 setFrame:button1_rect];
+                             
+                             //Alpha Animation
+                             [button3 setAlpha:minAlpha];
+                         }
+                         completion:^(BOOL finished) {
+                         }];
+        [UIView animateWithDuration:closeDuration
+                              delay:0.2
+             usingSpringWithDamping:1
+              initialSpringVelocity:40
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^(void) {
+                             //Frame Animation
+                             [button4 setFrame:button1_rect];
+                             
+                             //Alpha Animation
+                             [button4 setAlpha:minAlpha];
+                         }
+                         completion:^(BOOL finished) {
+                             [self menuViewDidClose];
+                             _isOpen = NO;
+                         }];
     }
     
-    if ([self.delegate respondsToSelector:@selector(MVDmenuIsOpen:)]) {
+    if ([delegate respondsToSelector:@selector(MVDmenuIsOpen:)]) {
         [delegate MVDmenuIsOpen:isOpen];
+    }
+    
+    if (!flag) {
+        [self scalingEffectDown:sender];
     }
 }
 
 -(void)updateCurrentIndex:(UIButton *)sender {
-    switch (sender.tag) {
-        case 1:
-            //Comes from button2
-            _currentIndex = sender.tag - 1;
-            break;
-        case 2:
-            //Comes from button3
-            _currentIndex = sender.tag - 1;
-            break;
-        case 3:
-            //Comes from button4
-            _currentIndex = sender.tag - 1;
-            break;
-        default:
-            break;
-    }
+    [self scalingEffectDown:sender];
+    //Set the new current index variable
+    _currentIndex = sender.tag - 1;
     
     if ([self.delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
         [delegate MVDcurrentIndexWasUpdated:sender.tag - 1];
     }
     
-    [self toggleMenu]; //Close the menu programmatically
+    [self toggleMenuWithButton:sender SE:NO]; //Close the menu programmatically
 }
 
 -(void)hideExtButtons {
     if (!_isOpen) {
-        [self hideButtons];
-    } else  {
         [self showButtons];
+    } else {
+        [self hideButtons];
     }
 }
 
@@ -191,8 +276,6 @@
     if ([self.delegate respondsToSelector:@selector(MVDmenuViewWillOpen)]) {
             [delegate MVDmenuViewWillOpen];
     }
-    
-    [self hideExtButtons];
 }
 
 -(void)menuViewWillClose {
@@ -211,16 +294,14 @@
     if ([self.delegate respondsToSelector:@selector(MVDmenuViewDidClose)]) {
         [delegate MVDmenuViewDidClose];
     }
-    
-    [self hideExtButtons];
 }
 
 -(void)setOpenDuration:(float)duration {
-    _openDuration = duration;
+    openDuration = duration;
 }
 
 -(void)setCloseDuration:(float)duration {
-    _closeDuration = duration;
+    closeDuration = duration;
 }
 
 -(void)setImage:(UIImage *)image forButton:(long)button forState:(UIControlState)controlState {
@@ -248,6 +329,88 @@
 
 -(void)setDelegate:(id)id {
     delegate = id;
+}
+
+-(void)setMinAlpha:(float)value {
+    minAlpha = value;
+}
+
+-(void)setMaxAlpha:(float)value {
+    maxAlpha = value;
+}
+
+-(void)setCornerRadius:(float)radius {
+    //Set the corner radius
+    [button1.layer setCornerRadius:cornerRadius];
+    [button2.layer setCornerRadius:cornerRadius];
+    [button3.layer setCornerRadius:cornerRadius];
+    [button4.layer setCornerRadius:cornerRadius];
+}
+
+-(void)scalingEffect:(UIButton *)sender {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation
+                                        animationWithKeyPath:@"transform"];
+    
+    CATransform3D scale1 = CATransform3DMakeScale(1, 1, 1);
+    CATransform3D scale2 = CATransform3DMakeScale(1.3, 1.3, 1.3);
+    
+    NSArray *frameValues = [NSArray arrayWithObjects:
+                     [NSValue valueWithCATransform3D:scale1],
+                     [NSValue valueWithCATransform3D:scale2],
+                     nil];
+    [animation setValues:frameValues];
+    
+    NSArray *frameTimes = [NSArray arrayWithObjects:
+                          [NSNumber numberWithFloat:0.0],
+                          [NSNumber numberWithFloat:0.5],
+                           nil];
+    [animation setKeyTimes:frameTimes];
+    
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    animation.duration = .2;
+    
+    [sender.layer addAnimation:animation forKey:nil];
+}
+
+-(void)scalingEffectDown:(UIButton *)sender {
+    //Scale down effect
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation
+                                      animationWithKeyPath:@"transform"];
+    
+    CATransform3D scale1 = CATransform3DMakeScale(1.3, 1.3, 1.3);
+    CATransform3D scale2 = CATransform3DMakeScale(1, 1, 1);
+    
+    NSArray *frameValues = [NSArray arrayWithObjects:
+                            [NSValue valueWithCATransform3D:scale1],
+                            [NSValue valueWithCATransform3D:scale2],
+                            nil];
+    [animation setValues:frameValues];
+    
+    NSArray *frameTimes = [NSArray arrayWithObjects:
+                           [NSNumber numberWithFloat:0.0],
+                           [NSNumber numberWithFloat:0.5],
+                           nil];
+    [animation setKeyTimes:frameTimes];
+    
+    animation.fillMode = kCAFillModeForwards;
+    animation.removedOnCompletion = NO;
+    animation.duration = .2;
+    
+    [sender.layer addAnimation:animation forKey:nil];
+    [self playSoundNamed:@"out2" withExt:@"caf"];
+}
+
+- (void)playSoundNamed:(NSString *)fName withExt:(NSString *) ext{
+    NSString *path = [[NSBundle mainBundle] pathForResource : fName ofType :ext];
+    if ([[NSFileManager defaultManager] fileExistsAtPath : path]) {
+        NSURL *pathURL = [NSURL fileURLWithPath: path];
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef) pathURL, &audioEffect);
+        AudioServicesPlaySystemSound(audioEffect);
+    }
+    else {
+        NSLog(@"error, file not found: %@", path);
+    }
 }
 
 @end
