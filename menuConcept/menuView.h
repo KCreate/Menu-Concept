@@ -43,11 +43,10 @@
     SystemSoundID audioEffect;
 }
 
-//Private functions
 -(id)initWithCenter:(CGPoint)center;
--(void)toggleMenuWithButton:(UIButton *)sender SE:(BOOL)flag;
 
 //Public functions
+-(void)toggleMenu;
 -(void)setImage:(UIImage *)image forButton:(long int)button forState:(UIControlState)controlState;
 -(void)setCurrentIndex:(long int)index;
 -(void)setDelegate:(id)id;
@@ -60,15 +59,21 @@
       shadowOffset:(CGSize)size
        shadowColor:(UIColor*)shadowColor
      shadowOpacity:(float)shadowOpacity;
+-(void)setWantsMask:(BOOL)flag;
+-(void)setBackgroundEnabled:(BOOL)flag;
+-(void)setBackgroundColor:(UIColor *)color forButtonAtIndex:(long int)index;
+-(void)resetAndReload;
+-(void)reload;
 
 //Properties the user can set
 @property (nonatomic, assign) id  delegate;
 @property (nonatomic, readonly) long int currentIndex;
 @property (nonatomic, readonly) BOOL isOpen;
+@property (nonatomic, readwrite) BOOL backgroundEnabled;
+@property (nonatomic, readwrite) BOOL wantsMask;
 @property (nonatomic, readwrite) float minAlpha;
 @property (nonatomic, readwrite) float maxAlpha;
 @property (nonatomic, readwrite) float cornerRadius;
-@property (nonatomic, readwrite) CGSize buttonScale;
 
 @end
 

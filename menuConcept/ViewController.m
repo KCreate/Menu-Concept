@@ -19,7 +19,6 @@
     mainMenuView = [[menuView alloc] initWithCenter:CGPointMake(viewWidht_half, 450)];
     mainMenuView.delegate = self; //Important if you want to use delegate methods like MVDcurrentIndexWasUpdated:
     [self.view addSubview:mainMenuView];
-    mainMenuView.cornerRadius = 15;
 }
 
 -(void)MVDcurrentIndexWasUpdated:(long int)currentIndex {
@@ -46,6 +45,10 @@
     }
     
     [UIView commitAnimations];
+}
+
+- (IBAction)toggleMenu:(id)sender {
+    [mainMenuView toggleMenu];
 }
 
 @end

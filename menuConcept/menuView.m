@@ -9,8 +9,14 @@
 #import "menuView.h"
 #import "ViewController.h"
 
+@interface menuView()
+
+-(void)toggleMenuWithButton:(UIButton *)sender SE:(BOOL)flag;
+
+@end
+
 @implementation menuView
-@synthesize isOpen, currentIndex, delegate, minAlpha, maxAlpha, cornerRadius, buttonScale;
+@synthesize isOpen, currentIndex, delegate, minAlpha, maxAlpha, cornerRadius, wantsMask, backgroundEnabled;
 
 - (id)initWithCenter:(CGPoint)center {
     
@@ -32,6 +38,8 @@
     minAlpha = 0;
     maxAlpha = 1;
     cornerRadius = 25;
+    wantsMask = NO;
+    backgroundEnabled = YES;
     
     //Creating a couple button to use. Defined in the menuViewButton class
     button1 = [[UIButton alloc] initWithFrame:button1_rect];
@@ -127,10 +135,7 @@
 
 -(void)toggleMenuWithButton:(UIButton *)sender SE:(BOOL)flag {
     //Set the corner radius
-    [button1.layer setCornerRadius:cornerRadius];
-    [button2.layer setCornerRadius:cornerRadius];
-    [button3.layer setCornerRadius:cornerRadius];
-    [button4.layer setCornerRadius:cornerRadius];
+    [self reload];
     
     if (!_isOpen) {
         //Menu is closed
@@ -341,10 +346,11 @@
 
 -(void)setCornerRadius:(float)radius {
     //Set the corner radius
-    [button1.layer setCornerRadius:cornerRadius];
-    [button2.layer setCornerRadius:cornerRadius];
-    [button3.layer setCornerRadius:cornerRadius];
-    [button4.layer setCornerRadius:cornerRadius];
+    cornerRadius = radius;
+    [button1.layer setCornerRadius:radius];
+    [button2.layer setCornerRadius:radius];
+    [button3.layer setCornerRadius:radius];
+    [button4.layer setCornerRadius:radius];
 }
 
 -(void)scalingEffect:(UIButton *)sender {
@@ -456,6 +462,79 @@
         default:
             break;
     }
+}
+
+-(void)setBackgroundEnabled:(BOOL)flag {
+    backgroundEnabled = flag;
+    [self reload];
+}
+
+-(void)setBackgroundColor:(UIColor *)color forButtonAtIndex:(long)index {
+    switch (index) {
+        case 0:
+            //Main Button
+            [button1 setBackgroundColor:color];
+            break;
+        case 1:
+            //Second button
+            [button2 setBackgroundColor:color];
+            break;
+        case 2:
+            //Third Button
+            [button3 setBackgroundColor:color];
+            break;
+        case 3:
+            //Fourt button
+            [button4 setBackgroundColor:color];
+            break;
+        default:
+            break;
+    }
+    
+    [self reload];
+}
+
+- (void)resetAndReload {
+    [self initialization];
+}
+
+-(void)reload {
+    [button1.layer setCornerRadius:cornerRadius];
+    [button2.layer setCornerRadius:cornerRadius];
+    [button3.layer setCornerRadius:cornerRadius];
+    [button4.layer setCornerRadius:cornerRadius];
+    
+    if (backgroundEnabled) {
+        [button1 setBackgroundColor:[UIColor grayColor]];
+        [button2 setBackgroundColor:[UIColor redColor]];
+        [button3 setBackgroundColor:[UIColor redColor]];
+        [button4 setBackgroundColor:[UIColor redColor]];
+    } else {
+        [button1 setBackgroundColor:[UIColor clearColor]];
+        [button2 setBackgroundColor:[UIColor clearColor]];
+        [button3 setBackgroundColor:[UIColor clearColor]];
+        [button4 setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    if (wantsMask) {
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        CGRect maskRect = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        CGPathRef path = CGPathCreateWithRect(maskRect, NULL);
+        maskLayer.path = path;
+        CGPathRelease(path);
+        self.layer.mask = maskLayer;
+    } else {
+        self.layer.mask = nil;
+    }
+}
+
+-(void)setWantsMask:(BOOL)flag {
+    wantsMask = flag;
+    [self reload];
+}
+
+-(void)toggleMenu {
+    [self toggleMenuWithButton:nil SE:NO];
 }
 
 @end

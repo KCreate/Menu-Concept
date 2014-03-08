@@ -14,5 +14,6 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIView *view;
+- (IBAction)toggleMenu:(id)sender;
 
 @end
