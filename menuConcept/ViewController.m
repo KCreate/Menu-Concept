@@ -16,10 +16,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    mainMenuView = [[menuView alloc] initWithCenter:CGPointMake(viewWidht_half, 450)];
+    mainMenuView = [[menuView alloc] initWithCenter:CGPointMake(viewWidht_half, viewHeight_half + 150)];
     mainMenuView.delegate = self; //Important if you want to use delegate methods like MVDcurrentIndexWasUpdated:
     [self.view addSubview:mainMenuView];
-    mainMenuView.drawButtonBorder = YES;
+    mainMenuView.drawButtonBorder = NO;
 }
 
 -(void)MVDcurrentIndexWasUpdated:(long int)currentIndex {

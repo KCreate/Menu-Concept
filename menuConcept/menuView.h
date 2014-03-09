@@ -30,7 +30,6 @@
     CGRect button3_rect;
     CGRect button4_rect;
     
-    //Class Variables
     BOOL _isOpen;
     long int _currentIndex;
     float openDuration;
@@ -40,7 +39,6 @@
 
 -(id)initWithCenter:(CGPoint)center;
 
-//Public functions
 -(void)toggleMenu;
 -(void)setImage:(UIImage *)image forButton:(long int)button forState:(UIControlState)controlState;
 -(void)setCurrentIndex:(long int)index;
@@ -59,7 +57,6 @@
 -(void)resetAndReload;
 -(void)reload;
 
-//Properties the user can get
 @property (nonatomic, assign) id  delegate;
 @property (nonatomic, readwrite) long int currentIndex;
 @property (nonatomic, readonly) BOOL isOpen;
@@ -70,10 +67,10 @@
 @property (nonatomic, readwrite) float cornerRadius;
 @property (nonatomic, readwrite) BOOL drawButtonBorder;
 
-@property (nonatomic, readonly) UIButton *button1;
-@property (nonatomic, readonly) UIButton *button2;
-@property (nonatomic, readonly) UIButton *button3;
-@property (nonatomic, readonly) UIButton *button4;
+@property (nonatomic, readwrite) UIButton *button1;
+@property (nonatomic, readwrite) UIButton *button2;
+@property (nonatomic, readwrite) UIButton *button3;
+@property (nonatomic, readwrite) UIButton *button4;
 
 @property (nonatomic, readwrite) CGRect button1_rect;
 @property (nonatomic, readwrite) CGRect button2_rect;

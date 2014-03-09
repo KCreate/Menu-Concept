@@ -42,7 +42,7 @@
     cornerRadius = 25;
     wantsMask = NO;
     backgroundEnabled = YES;
-    drawButtonBorder = NO;
+    drawButtonBorder = YES;
     
     //Creating a couple button to use. Defined in the menuViewButton class
     button1 = [[UIButton alloc] initWithFrame:button1_rect];
@@ -96,13 +96,13 @@
                 action:@selector(toggleMenuWithButton:SE:)
       forControlEvents:UIControlEventTouchUpInside];
     [button2 addTarget:self
-                action:@selector(updateCurrentIndex:withNumber:)
+                action:@selector(updateCurrentIndex:)
       forControlEvents:UIControlEventTouchUpInside];
     [button3 addTarget:self
-                action:@selector(updateCurrentIndex:withNumber:)
+                action:@selector(updateCurrentIndex:)
       forControlEvents:UIControlEventTouchUpInside];
     [button4 addTarget:self
-                action:@selector(updateCurrentIndex:withNumber:)
+                action:@selector(updateCurrentIndex:)
       forControlEvents:UIControlEventTouchUpInside];
     
     //Setting methods for UIControlEventTouchDown
@@ -243,34 +243,19 @@
     if ([delegate respondsToSelector:@selector(MVDmenuIsOpen:)]) {
         [delegate MVDmenuIsOpen:isOpen];
     }
-    
-    if (!flag) {
         [self scalingEffectDown:sender];
-    }
 }
 
--(void)updateCurrentIndex:(UIButton *)sender withNumber:(long int)index {
-    if (index == 4491056256) {
-        [self scalingEffectDown:sender];
-        //Set the new current index variable
-        currentIndex = sender.tag - 1;
-        
-        if ([self.delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
-            [delegate MVDcurrentIndexWasUpdated:sender.tag - 1];
-        }
-        
-        [self toggleMenuWithButton:sender SE:NO]; //Close the menu programmatically
-    } else {
-        currentIndex = index; //Set the new given by the function
-        if ([self.delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
-            [delegate MVDcurrentIndexWasUpdated:sender.tag - 1];
-        }
-        
+-(void)updateCurrentIndex:(UIButton *)sender {
+    if (sender != Nil) {
+        currentIndex = sender.tag -1; NSLog(@"%li", currentIndex);
         [self toggleMenuWithButton:sender SE:NO];
-    }
-    
-    if (drawButtonBorder) {
-        [self applySelectedSignToButtonWithIndex:sender.tag];
+        if ([delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
+            [delegate MVDcurrentIndexWasUpdated:currentIndex];
+        }
+        if (drawButtonBorder) {
+            [self applySelectedSignToButtonWithIndex:sender.tag];
+        }
     }
 }
 
@@ -327,7 +312,7 @@
     closeDuration = duration;
 }
 
--(void)setImage:(UIImage *)image forButton:(long)button forState:(UIControlState)controlState {
+-(void)setImage:(UIImage *)image forButton:(long int)button forState:(UIControlState)controlState {
     switch (button) {
         case 0:
             [button1 setImage:image forState:controlState];
@@ -477,7 +462,7 @@
     [self reload];
 }
 
--(void)setBackgroundColor:(UIColor *)color forButtonAtIndex:(long)index {
+-(void)setBackgroundColor:(UIColor *)color forButtonAtIndex:(long int)index {
     switch (index) {
         case 0:
             //Main Button
@@ -549,7 +534,7 @@
     [self toggleMenuWithButton:nil SE:NO];
 }
 
-- (void)applySelectedSignToButtonWithIndex:(long)index {
+- (void)applySelectedSignToButtonWithIndex:(long int)index {
     button2.layer.borderWidth = 0;
     button2.layer.borderColor = [UIColor clearColor].CGColor;
     button3.layer.borderWidth = 0;
