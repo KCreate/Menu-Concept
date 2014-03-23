@@ -10,6 +10,7 @@
 #define viewHeight_half (self.view.bounds.size.height / 2)
 
 #import "ViewController.h"
+#import "menuView.h"
 
 @implementation ViewController
 
@@ -19,7 +20,8 @@
     mainMenuView = [[menuView alloc] initWithCenter:CGPointMake(viewWidht_half, viewHeight_half + 150)];
     mainMenuView.delegate = self; //Important if you want to use delegate methods like MVDcurrentIndexWasUpdated:
     [self.view addSubview:mainMenuView];
-    mainMenuView.drawButtonBorder = NO;
+    [mainMenuView setDrawButtonBorder:NO];
+    [self.view.layer setCornerRadius:7];
 }
 
 -(void)MVDcurrentIndexWasUpdated:(long int)currentIndex {
@@ -32,15 +34,17 @@
         case 0:
             //Button 1
             self.view.backgroundColor = [UIColor blueColor];
+            NSLog(@"0");
             break;
         case 1:
             //Button 2
             self.view.backgroundColor = [UIColor greenColor];
+            NSLog(@"1");
             break;
         case 2:
             //Button 3
             self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
-            [mainMenuView setDrawButtonBorder:NO];
+            NSLog(@"2");
             break;
         default:
             break;

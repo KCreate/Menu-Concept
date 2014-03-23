@@ -67,6 +67,8 @@
 @property (nonatomic, readwrite) float cornerRadius;
 @property (nonatomic, readwrite) BOOL drawButtonBorder;
 
+@property (nonatomic, readwrite) UIView *mainView;
+
 @property (nonatomic, readwrite) UIButton *button1;
 @property (nonatomic, readwrite) UIButton *button2;
 @property (nonatomic, readwrite) UIButton *button3;

@@ -18,7 +18,7 @@
 
 @implementation menuView
 @synthesize isOpen, currentIndex, delegate, minAlpha, maxAlpha, cornerRadius, wantsMask, backgroundEnabled, drawButtonBorder;
-@synthesize button1, button2, button3, button4, button1_rect, button2_rect, button3_rect, button4_rect;
+@synthesize button1, button2, button3, button4, button1_rect, button2_rect, button3_rect, button4_rect, mainView;
 
 - (id)initWithCenter:(CGPoint)center {
     
@@ -35,8 +35,8 @@
     //Setting some default values
     _isOpen = NO;
     _currentIndex = 0;
-    openDuration = 0.5;
-    closeDuration = 0.5;
+    openDuration = 0.3;
+    closeDuration = 0.3;
     minAlpha = 0;
     maxAlpha = 1;
     cornerRadius = 25;
@@ -50,14 +50,16 @@
     button3 = [[UIButton alloc] initWithFrame:button3_rect];
     button4 = [[UIButton alloc] initWithFrame:button4_rect];
     
-    //Adding the previusly initialized buttons to our view
-    [self addSubview:button2];
-    [self addSubview:button3];
-    [self addSubview:button4];
-    [self addSubview:button1];
+    //Creating the mainview where all the buttons are located in
+    mainView = [[UIView alloc] initWithFrame:self.bounds];
+    [mainView addSubview:button2];
+    [mainView addSubview:button3];
+    [mainView addSubview:button4];
+    [mainView addSubview:button1];
+    [self addSubview:mainView];
     
     //Initializing the button_rects
-    button1_rect = CGRectMake(75,100,50,50);
+    button1_rect = CGRectMake(75,90,50,50);
     button2_rect = CGRectMake(0,30,50,50);
     button3_rect = CGRectMake(75,0,50,50);
     button4_rect = CGRectMake(150,30,50,50);
@@ -137,16 +139,15 @@
 #pragma mark menuView methods
 
 -(void)toggleMenuWithButton:(UIButton *)sender SE:(BOOL)flag {
-    //Set the corner radius
     [self reload];
     
     if (!_isOpen) {
         //Menu is closed
         [UIView animateWithDuration:openDuration
                               delay:0
-             usingSpringWithDamping:0.8
-              initialSpringVelocity:40
-                            options:UIViewAnimationOptionCurveEaseInOut
+             usingSpringWithDamping:0.9
+              initialSpringVelocity:20
+                            options:UIViewAnimationOptionCurveEaseIn
                          animations:^(void) {
                              [self menuViewWillOpen];
                              
@@ -160,9 +161,9 @@
                          }];
         [UIView animateWithDuration:openDuration
                               delay:0.1
-             usingSpringWithDamping:0.8
-              initialSpringVelocity:40
-                            options:UIViewAnimationOptionCurveEaseInOut
+             usingSpringWithDamping:0.9
+              initialSpringVelocity:20
+                            options:UIViewAnimationOptionCurveEaseIn
                          animations:^(void) {
                              //Frame Animation
                              [button3 setFrame:button3_rect];
@@ -174,9 +175,9 @@
                          }];
         [UIView animateWithDuration:openDuration
                               delay:0.2
-             usingSpringWithDamping:0.8
-              initialSpringVelocity:40
-                            options:UIViewAnimationOptionCurveEaseInOut
+             usingSpringWithDamping:0.9
+              initialSpringVelocity:20
+                            options:UIViewAnimationOptionCurveEaseIn
                          animations:^(void) {
                              //Frame Animation
                              [button4 setFrame:button4_rect];
@@ -194,23 +195,23 @@
         [UIView animateWithDuration:closeDuration
                               delay:0
              usingSpringWithDamping:1
-              initialSpringVelocity:40
+              initialSpringVelocity:20
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^(void) {
                              [self menuViewWillClose];
                              
                              //Frame Animation
-                             [button2 setFrame:button1_rect];
+                             [button4 setFrame:button1_rect];
                              
                              //Alpha Animation
-                             [button2 setAlpha:minAlpha];
+                             [button4 setAlpha:minAlpha];
                          }
                          completion:^(BOOL finished) {
                          }];
         [UIView animateWithDuration:closeDuration
                               delay:0.1
              usingSpringWithDamping:1
-              initialSpringVelocity:40
+              initialSpringVelocity:20
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^(void) {
                              //Frame Animation
@@ -224,15 +225,15 @@
         [UIView animateWithDuration:closeDuration
                               delay:0.2
              usingSpringWithDamping:1
-              initialSpringVelocity:40
+              initialSpringVelocity:20
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^(void) {
                              //Frame Animation
-                             [button4 setFrame:button1_rect];
+                             [button2 setFrame:button1_rect];
                              [button1 setFrame:button1_rect];
                              
                              //Alpha Animation
-                             [button4 setAlpha:minAlpha];
+                             [button2 setAlpha:minAlpha];
                          }
                          completion:^(BOOL finished) {
                              [self menuViewDidClose];
@@ -247,11 +248,13 @@
 }
 
 -(void)updateCurrentIndex:(UIButton *)sender {
+    NSLog(@"test");
     if (sender != Nil) {
         currentIndex = sender.tag -1; NSLog(@"%li", currentIndex);
         [self toggleMenuWithButton:sender SE:NO];
         if ([delegate respondsToSelector:@selector(MVDcurrentIndexWasUpdated:)]) {
             [delegate MVDcurrentIndexWasUpdated:currentIndex];
+
         }
         if (drawButtonBorder) {
             [self applySelectedSignToButtonWithIndex:sender.tag];
